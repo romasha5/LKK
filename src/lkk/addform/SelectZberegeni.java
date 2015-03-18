@@ -134,7 +134,7 @@ public class SelectZberegeni extends JDialog {
 			JButton button_1 = new JButton("Видалити");
 			button_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int dr = JOptionPane.showConfirmDialog(null, "Дійсно видалити запис?", "Попередження.", JOptionPane.YES_NO_OPTION);
+					int dr = JOptionPane.showConfirmDialog(null, "Дійсно видалити довідку?", "Попередження.", JOptionPane.YES_NO_OPTION);
 					int s=table.getSelectedRow();
 					if (dr== JOptionPane.YES_OPTION && s!=-1){
 						QueryMainTable.deleteMainTable((Integer)table.getModel().getValueAt(table.getSelectedRow(), 8));

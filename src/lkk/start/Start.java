@@ -502,8 +502,6 @@ public class Start extends JFrame {
 				sh.setVisible(true);
 			}
 		});
-		
-		JOptionPane.showMessageDialog(null, flag);
 	}
 	
 	void selchlen(){				
