@@ -397,12 +397,8 @@ public class Start extends JFrame {
 						addMainTable();
 					}
 					else {						
-						DateFormat dateformat = new SimpleDateFormat("YYYY-MM-dd");
-						String dateborn=dateformat.format(datepicker.getDate());
-						String datezapovn=dateformat.format(datePickerZ.getDate());
-						QueryMainTable.updateMainTable(textField.getText(), textField_1.getText(), 
-								textField_2.getText(), dateborn, textPane.getText(), textPane_1.getText(), textPane_2.getText(), datezapovn, id);
-						JOptionPane.showMessageDialog(null, "Довідку змінено.");
+						changeMainTable();
+						flag=!flag;
 					}					
 				}
 				else {
@@ -525,5 +521,14 @@ public class Start extends JFrame {
 		QueryMainTable.insertMainTable(textField.getText(), textField_1.getText(), textField_2.getText(), 
 				dateborn, textPane.getText(), textPane_1.getText(), textPane_2.getText(), datezapovn);
 		JOptionPane.showMessageDialog(null, "Довідку додано в БД.");
+	}
+	
+	void changeMainTable(){
+		DateFormat dateformat = new SimpleDateFormat("YYYY-MM-dd");
+		String dateborn=dateformat.format(datepicker.getDate());
+		String datezapovn=dateformat.format(datePickerZ.getDate());
+		QueryMainTable.updateMainTable(textField.getText(), textField_1.getText(), 
+				textField_2.getText(), dateborn, textPane.getText(), textPane_1.getText(), textPane_2.getText(), datezapovn, id);
+		JOptionPane.showMessageDialog(null, "Довідку змінено.");
 	}
 }
