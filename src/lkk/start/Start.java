@@ -396,13 +396,13 @@ public class Start extends JFrame {
 					if (flag) {
 						addMainTable();
 					}
-					else {
-						JOptionPane.showMessageDialog(null, id);
+					else {						
 						DateFormat dateformat = new SimpleDateFormat("YYYY-MM-dd");
 						String dateborn=dateformat.format(datepicker.getDate());
 						String datezapovn=dateformat.format(datePickerZ.getDate());
 						QueryMainTable.updateMainTable(textField.getText(), textField_1.getText(), 
 								textField_2.getText(), dateborn, textPane.getText(), textPane_1.getText(), textPane_2.getText(), datezapovn, id);
+						JOptionPane.showMessageDialog(null, "Довідку змінено.");
 					}					
 				}
 				else {
