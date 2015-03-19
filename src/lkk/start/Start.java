@@ -43,6 +43,7 @@ import java.awt.event.WindowEvent;
 import lkk.addform.Changekom;
 import lkk.addform.SelectHuman;
 import lkk.addform.SelectPrivid;
+import lkk.addform.SelectTarget;
 import lkk.addform.SelectZaklkom;
 import lkk.addform.SelectZberegeni;
 import lkk.dbaprovider.ConnectDBA;
@@ -71,7 +72,8 @@ public class Start extends JFrame {
 	JTextPane textPane;
 	JTextPane textPane_1;
 	JTextPane textPane_2;
-	public Boolean flag=true;
+	JTextPane textPane_3;
+	public static Boolean flag=true;
 	public static Integer id=0;
 
 	/**
@@ -240,11 +242,11 @@ public class Start extends JFrame {
 		
 		JLabel label_5 = new JLabel("Заключення комісії:");
 		label_5.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label_5.setBounds(10, 120, 166, 25);
+		label_5.setBounds(10, 88, 166, 25);
 		panel_1.add(label_5);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(10, 23, 666, 99);
+		scrollPane_2.setBounds(10, 23, 666, 61);
 		panel_1.add(scrollPane_2);
 		
 		textPane_1 = new JTextPane();
@@ -255,7 +257,7 @@ public class Start extends JFrame {
 		textPane_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(10, 143, 666, 107);
+		scrollPane_3.setBounds(10, 111, 666, 70);
 		panel_1.add(scrollPane_3);
 		
 		textPane_2 = new JTextPane();
@@ -290,8 +292,31 @@ public class Start extends JFrame {
 				zalkom.setVisible(true);
 			}
 		});
-		button_9.setBounds(586, 123, 89, 17);
+		button_9.setBounds(586, 88, 89, 17);
 		panel_1.add(button_9);
+		
+		JLabel label_8 = new JLabel("Куди видано довідку:");
+		label_8.setFont(new Font("Tahoma", Font.BOLD, 14));
+		label_8.setBounds(10, 184, 182, 25);
+		panel_1.add(label_8);
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBounds(10, 209, 666, 41);
+		panel_1.add(scrollPane_4);
+		
+		textPane_3 = new JTextPane();
+		textPane_3.setBackground(SystemColor.info);
+		scrollPane_4.setViewportView(textPane_3);
+		
+		JButton button_11 = new JButton("Вибір");
+		button_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SelectTarget selecttarget = new SelectTarget(textPane_3);
+				selecttarget.setVisible(true);
+			}
+		});
+		button_11.setBounds(587, 187, 89, 17);
+		panel_1.add(button_11);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setToolTipText("Формування підписантів");
@@ -433,7 +458,7 @@ public class Start extends JFrame {
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
 					flag=false;
-					SelectZberegeni zb = new SelectZberegeni(textField,textField_1,textField_2,textPane,textPane_1,textPane_2,datepicker,datePickerZ);
+					SelectZberegeni zb = new SelectZberegeni(textField,textField_1,textField_2,textPane,textPane_1,textPane_2,datepicker,datePickerZ,textPane_3);
 					zb.setVisible(true);
 			}
 		});
@@ -517,7 +542,7 @@ public class Start extends JFrame {
 
 		
 		QueryMainTable.insertMainTable(textField.getText(), textField_1.getText(), textField_2.getText(), 
-				dateborn, textPane.getText(), textPane_1.getText(), textPane_2.getText(), datezapovn);
+				dateborn, textPane.getText(), textPane_1.getText(), textPane_2.getText(), datezapovn,textPane_3.getText());
 		JOptionPane.showMessageDialog(null, "Довідку додано в БД.");
 	}
 	
@@ -526,7 +551,7 @@ public class Start extends JFrame {
 		String dateborn=dateformat.format(datepicker.getDate());
 		String datezapovn=dateformat.format(datePickerZ.getDate());
 		QueryMainTable.updateMainTable(textField.getText(), textField_1.getText(), 
-				textField_2.getText(), dateborn, textPane.getText(), textPane_1.getText(), textPane_2.getText(), datezapovn, id);
+				textField_2.getText(), dateborn, textPane.getText(), textPane_1.getText(), textPane_2.getText(), datezapovn, id,textPane_3.getText());
 		JOptionPane.showMessageDialog(null, "Довідку змінено.");
 	}
 }

@@ -30,7 +30,8 @@ public class CreateDataBase {
 	      		+ "[adress] TEXT,"
 	      		+ "[privid] TEXT,"
 	      		+ "[zaklkom] TEXT,"
-	      		+ "[datezapovn] DATE)";
+	      		+ "[datezapovn] DATE,"
+	      		+ "[target] TEXT)";
 	      stmt.executeUpdate(sql);
 	      
 	      stmt.close();

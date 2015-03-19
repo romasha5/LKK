@@ -1,12 +1,11 @@
 package lkk.dbaprovider;
-import java.io.File;
 import java.util.prefs.Preferences;
 
 public class SaveLoadProperties {
 	   private Preferences userProp;
 	    String cs;
 	    String constr;
-	    String curDir = new File(".").getAbsolutePath();
+	    String curDir = System.getProperty("user.home");
 	    public SaveLoadProperties()
 	    {
 	        userProp = Preferences.userNodeForPackage(SaveLoadProperties.class);

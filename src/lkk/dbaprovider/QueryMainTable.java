@@ -62,7 +62,8 @@ public class QueryMainTable {
 	      									+ " adress as \"Адреса\","
 	      									+ " privid as \"Привід\","
 	      									+ " zaklkom as \"Заключення\","
-	      									+ " id"
+	      									+ " id,"
+	      									+ " target"
 	      									+ " from main order by datezapovn");
 	      
 	      tbmain=DbUtils.resultSetToTableModel(rs);	      	      
@@ -123,9 +124,33 @@ public class QueryMainTable {
 	    }
 		return tbmain;	    
 	  }	 
+	
+	public static TableModel selectMainTableTarget(  )
+	  {
+	    Connection c = null;
+	    Statement stmt = null;
+	    SaveLoadProperties slp = new SaveLoadProperties();
+	    try {
+	      Class.forName("org.sqlite.JDBC");
+	      c = DriverManager.getConnection(slp.getConStr());
+	      c.setAutoCommit(false);	      
+
+	      stmt = c.createStatement();
+	      ResultSet rs = stmt.executeQuery( "select target as \"Куди видано довідку\" from main order by target");
+	      
+	      tbmain=DbUtils.resultSetToTableModel(rs);	      	      
+	      
+	      stmt.close();
+	      c.commit();
+	      c.close();
+	    } catch ( Exception e ) {
+	      JOptionPane.showMessageDialog(null, e.getClass().getName() + ": " + e.getMessage() );	      
+	    }
+		return tbmain;	    
+	  }	 
 
 	public static void insertMainTable(String lastname,String name,String fathersname,String dateborn,
-										String adress,String privid,String zaklkom, String datezapovn){
+										String adress,String privid,String zaklkom, String datezapovn, String target){
 	    Connection c = null;
 	    Statement stmt = null;
 	    SaveLoadProperties slp = new SaveLoadProperties();
@@ -136,8 +161,8 @@ public class QueryMainTable {
 	      
 	      stmt = c.createStatement();
 	      String sql = "insert into main (lastname,name,fathersname,dateborn,adress,privid,zaklkom,"
-	      				+ "datezapovn) VALUES ('"+lastname+"','"+name+"','"+fathersname+"','"+dateborn
-	      				+"','"+adress+"','"+privid+"','"+zaklkom+"','"+datezapovn+"')"; 
+	      				+ "datezapovn,target) VALUES ('"+lastname+"','"+name+"','"+fathersname+"','"+dateborn
+	      				+"','"+adress+"','"+privid+"','"+zaklkom+"','"+datezapovn+"','"+target+"')"; 
 	      stmt.executeUpdate(sql);
 
 	      stmt.close();
@@ -149,7 +174,7 @@ public class QueryMainTable {
 	}
 
 	public static void updateMainTable(String lastname,String name,String fathersname,String dateborn,
-			String adress,String privid,String zaklkom, String datezapovn, Integer id){		  
+			String adress,String privid,String zaklkom, String datezapovn, Integer id, String target){		  
 			    Connection c = null;
 			    Statement stmt = null;
 			    SaveLoadProperties slp = new SaveLoadProperties();
@@ -162,7 +187,7 @@ public class QueryMainTable {
 			      stmt = c.createStatement();
 			      String sql = "update main set lastname='"+lastname+"',name='"+name+"',fathersname='"+fathersname
 			    		  +"',dateborn='"+dateborn+"',adress='"+adress+"',privid='"+privid+"',zaklkom='"+zaklkom
-			      		  +"',datezapovn='"+datezapovn+"' where ID='"+id+"';";
+			      		  +"',datezapovn='"+datezapovn+"',target='"+target+"' where ID='"+id+"';";
 			      stmt.executeUpdate(sql);
 			      c.commit();
 

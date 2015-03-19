@@ -54,11 +54,12 @@ public class SelectZberegeni extends JDialog {
 	 * @param textField_2 
 	 * @param textField_1 
 	 * @param textField 
+	 * @param textPane_3 
 	 * @param id 
 	 */
 	public SelectZberegeni(JTextField textField, JTextField textField_1, JTextField textField_2, 
 			JTextPane textPane, JTextPane textPane_1, JTextPane textPane_2, 
-			DatePicker datepicker, DatePicker datePickerZ) {
+			DatePicker datepicker, DatePicker datePickerZ, JTextPane textPane_3) {
 		setTitle("Збережені довідки");
 		setResizable(false);
 		setModal(true);
@@ -88,13 +89,14 @@ public class SelectZberegeni extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount()==2){
-					changeData(textField, textField_1, textField_2, textPane, textPane_1, textPane_2, datepicker, datePickerZ);
+					changeData(textField, textField_1, textField_2, textPane, textPane_1, textPane_2, datepicker, datePickerZ, textPane_3);
 				}
 			}
 		});
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setFont(new Font("Arial", Font.BOLD, 12));
 		table.setModel(QueryMainTable.selectALLMainTable());	
+		table.removeColumn(table.getColumnModel().getColumn(8));
 		table.removeColumn(table.getColumnModel().getColumn(8));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());
@@ -115,6 +117,7 @@ public class SelectZberegeni extends JDialog {
 				cancelButton.setBounds(596, 11, 89, 23);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						Start.flag=true;
 						dispose();
 					}
 				});
@@ -125,7 +128,7 @@ public class SelectZberegeni extends JDialog {
 			JButton button = new JButton("Змінити");
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-						changeData(textField, textField_1, textField_2, textPane, textPane_1, textPane_2, datepicker, datePickerZ);
+						changeData(textField, textField_1, textField_2, textPane, textPane_1, textPane_2, datepicker, datePickerZ, textPane_3);
 				}
 			});
 			button.setBounds(10, 11, 89, 23);
@@ -155,9 +158,11 @@ public class SelectZberegeni extends JDialog {
 		}
 	}
 	
+
+
 	void changeData(JTextField textField, JTextField textField_1, JTextField textField_2, 
 			JTextPane textPane, JTextPane textPane_1, JTextPane textPane_2, 
-			DatePicker datepicker, DatePicker datePickerZ){
+			DatePicker datepicker, DatePicker datePickerZ, JTextPane textPane_3){
 		DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		try {
 			datepicker.setDate(format.parse((String) table.getModel().getValueAt(table.getSelectedRow(), 4)));
@@ -174,6 +179,7 @@ public class SelectZberegeni extends JDialog {
 		textPane_1.setText((String) table.getModel().getValueAt(table.getSelectedRow(), 6));
 		textPane_2.setText((String) table.getModel().getValueAt(table.getSelectedRow(), 7));
 		Start.id = (Integer) table.getModel().getValueAt(table.getSelectedRow(), 8);
+		textPane_3.setText((String) table.getModel().getValueAt(table.getSelectedRow(), 9));
 		dispose();
 	}
 	
